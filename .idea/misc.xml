@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_configuracion_usuario.xml" value="0.8425925925925926" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_login.xml" value="0.8425925925925926" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_turno.xml" value="0.8425925925925926" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/main_content.xml" value="0.8425925925925926" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/remisluna/app/src/main/res/drawable-hdpi/selector_cinco.xml" value="0.1605" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/remisluna/app/src/main/res/drawable-hdpi/selector_seis.xml" value="0.1605" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/remisluna/app/src/main/res/drawable-ldpi/selector_fin_turno.xml" value="0.1605" />

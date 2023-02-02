@@ -14,8 +14,8 @@
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorPrimaryText">#000000</color>
     <color name="primaryText">#434343</color>
-    <color name="colorPrimary">#2dd521</color>
-    <color name="colorPrimaryDark">#2a7025</color>
+    <color name="colorPrimary">#1877f2</color>
+    <color name="colorPrimaryDark">#004cbe</color>
     <color name="alarma">#FB0000</color>
     <color name="suspender">#FF6F00</color>
     <!-- MINI FAB -->

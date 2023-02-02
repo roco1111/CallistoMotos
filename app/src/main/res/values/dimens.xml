@@ -35,7 +35,7 @@
     <dimen name="tamanio_item">16sp</dimen>
     <dimen name="estrella">30dp</dimen>
     <dimen name="icono">50dp</dimen>
-    <dimen name="campos_width_medio">250dp</dimen>
+    <dimen name="campos_width_medio">300dp</dimen>
     <dimen name="headerbar_elevation">4dp</dimen>
     <dimen name="campos_height">42dp</dimen>
     <dimen name="alto_imagen">70dp</dimen>
