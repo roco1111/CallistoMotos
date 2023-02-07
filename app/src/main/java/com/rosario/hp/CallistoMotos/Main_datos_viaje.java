@@ -75,6 +75,7 @@ public class Main_datos_viaje extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == event.KEYCODE_BACK) {
+            this.finish();
             Intent intent2 = new Intent(context, viajes_activity.class);
             intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent2);
@@ -84,6 +85,7 @@ public class Main_datos_viaje extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        this.finish();
         Intent intent2 = new Intent(context, viajes_activity.class);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent2);

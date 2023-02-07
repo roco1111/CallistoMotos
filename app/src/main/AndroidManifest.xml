@@ -76,7 +76,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainTurno" />
+                android:value=".MainActivity" />
         </activity>
         <activity android:name=".Main_datos_viaje"
             android:screenOrientation="portrait">

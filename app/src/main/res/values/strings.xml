@@ -107,16 +107,17 @@
     <string name="reporte_turno">2: Último Final Turno</string>
     <string name="reporte_ultimos">3: Últimos 10 Finales de Turno</string>
     <string name="reporte_resumen">4: Viaje x Viaje</string>
-    <string name="reporte_impresora">I: Habilitar Ticket</string>
+    <string name="reporte_impresora">5: Habilitar Ticket</string>
     <string name="reporte_ticket">6: Repetir Ticket</string>
     <string name="reporte_fin_turno">7: Paradas</string>
-    <string name="reporte_viajes">8: Historial Turnos</string>
-    <string name="reporte_viaje">9:Refresco Pantalla</string>
+    <string name="reporte_viajes">2: Historial Viajes</string>
+    <string name="refresco">9:Refresco Pantalla</string>
+    <string name="reporte_perfil">1:Perfil</string>
     <string name="paradas">P:Paradas</string>
     <string name="fin_turno">5: Inicio y Fin Turnos</string>
-    <string name="automatico">A:Viaje de Prueba </string>
+    <string name="automatico">3:Viaje de Prueba </string>
     <string name="whatsapps">W:Whatsapps </string>
-    <string name="mapa">M:Mapa Ubicación </string>
+    <string name="mapa">8:Mapa Ubicación </string>
 
     <string name="diurno">T. Diurna</string>
     <string name="nocturno">T. Nocturna</string>

@@ -69,11 +69,13 @@ import com.rosario.hp.CallistoMotos.MainActivity;
 import com.rosario.hp.CallistoMotos.MainViaje;
 import com.rosario.hp.CallistoMotos.R;
 import com.rosario.hp.CallistoMotos.WebActivity;
+import com.rosario.hp.CallistoMotos.activity_preferencias;
 import com.rosario.hp.CallistoMotos.include.Constantes;
 import com.rosario.hp.CallistoMotos.include.PrinterCommands;
 import com.rosario.hp.CallistoMotos.include.Utils;
 import com.rosario.hp.CallistoMotos.include.VolleySingleton;
 import com.rosario.hp.CallistoMotos.turnos_activity;
+import com.rosario.hp.CallistoMotos.viajes_activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -119,8 +121,6 @@ public class fragment_viaje extends Fragment {
     private ImageButton boton_ocho;
     private ImageButton boton_nueve;
     private Button boton_whatsapp;
-    private ImageButton boton_mapa;
-    private ImageButton boton_impresora;
 
 
     private String recaudacion;
@@ -303,20 +303,19 @@ public class fragment_viaje extends Fragment {
         this.boton_ocho = v.findViewById(R.id.imageButtonOcho);
         this.boton_nueve = v.findViewById(R.id.imageButtonNueve);
         this.boton_whatsapp = v.findViewById(R.id.imageWa);
-        this.boton_mapa = v.findViewById(R.id.imageMapa);
-        this.boton_impresora = v.findViewById(R.id.imageImpresora);
         this.turno = v.findViewById(R.id.turno);
-        this.boton_siete.setEnabled(false);
         this.boton_siete.setBackground(act.getResources().getDrawable(R.drawable.siete_gris));
-        this.boton_nueve.setEnabled(false);
+        this.boton_siete.setEnabled(false);
         this.boton_nueve.setBackground(act.getResources().getDrawable(R.drawable.nueve_gris));
-        this.boton_cinco.setEnabled(false);
+        this.boton_nueve.setEnabled(false);
         this.text_observaciones = v.findViewById(R.id.observaciones);
         datos = new ArrayList<>();
 
         context = getContext();
         MediaPlayer mediaPlayer = MediaPlayer.create(act, R.raw.everblue);
 
+        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
+        this.boton_tres.setEnabled(false);
 
         this.impresora = v.findViewById(R.id.impresora);
         if(mBound) {
@@ -349,21 +348,6 @@ public class fragment_viaje extends Fragment {
             }
         });
 
-        this.boton_mapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = settings.edit();
-
-                editor.putString("url", "https://callisto.com.ar/remiseria/mapa_movil.php?viaje=" + id_viaje );
-                editor.apply();
-                Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                act.startActivity(intent);
-
-            }
-        });
 
         this.boton_whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -412,8 +396,9 @@ public class fragment_viaje extends Fragment {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
-
-                datos_turno(context);
+                Intent intent2 = new Intent(context, activity_preferencias.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent2);
 
             }
         });
@@ -422,21 +407,15 @@ public class fragment_viaje extends Fragment {
             @Override
             public void onClick(View v) {
 
-                lb_ultimo = true;
-                ultimo_turno(context);
-
-            }
-        });
-
-        this.boton_tres.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 mediaPlayer.start();
-
-                cargarDatosRecaudacion(context);
+                Intent intent2 = new Intent(context, viajes_activity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent2);
 
             }
         });
+
+
 
         this.boton_cuatro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -445,29 +424,6 @@ public class fragment_viaje extends Fragment {
 
                 datos_ultimos_viajes(context);
 
-            }
-        });
-
-        this.boton_impresora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("tipo_ventana","main");
-                editor.apply();
-                if(mBound) {
-                    act.unbindService(connection);
-                    impresora.setTextColor(act.getResources().getColor(R.color.alarma));
-                    mBound = false;
-                }
-                if(!mBound) {
-
-                    if(lb_bluetooth) {
-                        cargarImpresora(getContext());
-                    }
-
-                }
             }
         });
 
@@ -503,31 +459,24 @@ public class fragment_viaje extends Fragment {
             }
         });
 
-        this.boton_siete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-
-            }
-        });
 
         this.boton_ocho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
-                Intent intent2 = new Intent(context, turnos_activity.class);
-                context.startActivity(intent2);
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = settings.edit();
+
+                editor.putString("url", "https://callisto.com.ar/remiseria/mapa_movil.php?viaje=" + id_viaje );
+                editor.apply();
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                act.startActivity(intent);
+
             }
         });
 
-        this.boton_nueve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                Intent intent2 = new Intent(context, MainViaje.class);
-                context.startActivity(intent2);
-            }
-        });
+
         progress1 = ProgressDialog.show(context, "Recuperando Datos", "Por favor, espere..", true);
         feriado(context);
         return v;
@@ -641,67 +590,52 @@ public class fragment_viaje extends Fragment {
             PdfPTable table = new PdfPTable(1);
 
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ayuda),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ayuda),font));//0
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_parcial),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_parcial),font));//1
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viajes),font));//2
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ultimos),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.automatico),font));//3
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_resumen),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_resumen),font));//4
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.fin_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_impresora),font));//5
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ticket),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ticket),font));//6
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_fin_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_fin_turno),font));//7
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viajes),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.mapa),font));//8
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viaje),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.automatico),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_impresora),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.mapa),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.refresco),font));//9
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
@@ -1384,7 +1318,11 @@ public class fragment_viaje extends Fragment {
 
                         if(l_impresion.equals("0")) {
 
-                            boton_impresora.setVisibility(View.GONE);
+                            this.boton_cinco.setEnabled(false);
+                            this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco_gris));
+                        }else{
+                            this.boton_cinco.setEnabled(true);
+                            this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco));
                         }
 
                         cargarDatos(context);
@@ -1404,303 +1342,6 @@ public class fragment_viaje extends Fragment {
 
     }
 
-    public void cargarDatosRecaudacion( final Context context) {
-
-        // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_TURNOS + "?conductor=" + ls_id_conductor;
-        Log.d(TAG,newURL);
-
-        // Realizar petición GET_BY_ID
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                myRequest = new JsonObjectRequest(
-                        Request.Method.POST,
-                        newURL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // Procesar respuesta Json
-                                procesarRespuestaRecaudacion(response, context);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Error Volley viaje: " + error.getMessage());
-
-                            }
-                        }
-                )
-        );
-        myRequest.setRetryPolicy(new DefaultRetryPolicy(
-                50000,
-                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-    }
-
-    private void procesarRespuestaRecaudacion(JSONObject response, Context context) {
-        try {
-            // Obtener atributo "estado"
-            String estado = response.getString("estado");
-
-            switch (estado) {
-                case "1": // EXITO
-
-                    JSONArray mensaje = response.getJSONArray("turno");
-
-                    datos.clear();
-
-                    for(int i = 0; i < mensaje.length(); i++)
-                    {JSONObject object = mensaje.getJSONObject(i);
-                        turno tur = new turno();
-
-                        String id = object.getString("ID");
-
-                        tur.setId(id);
-
-                        String fecha = object.getString("FECHA");
-
-                        tur.setFecha(fecha);
-
-                        String hora_inicio = object.getString("HORA_INICIO");
-
-                        tur.setHora_inicio(hora_inicio);
-
-                        String hora_fin = object.getString("HORA_FIN");
-
-                        tur.setHora_fin(hora_fin);
-
-                        String recaudacion = object.getString("RECAUDACION");
-
-                        tur.setRecaudacion(recaudacion);
-
-                        datos.add(tur);
-
-                    }
-                    if (mBound) {
-                        ticket_recaudacion(datos);
-                    }else{
-                        crear_pfd_ticket_recaudacion(datos);
-                    }
-                    break;
-
-            }
-
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-        }
-
-    }
-
-    protected void ticket_recaudacion( ArrayList<turno> turnos) {
-        outputStream = impresion.getOutputStream();
-        if(outputStream == null){
-            Toast.makeText(context, "No se pudo conectar el dispositivo. Verifique si la impresora esta encendida", Toast.LENGTH_SHORT).show();
-        }else {
-
-            //print command
-            try {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                byte[] printformat = {0x1B, 0 * 21, FONT_TYPE};
-                //outputStream.write(printformat);
-
-                //print title
-                printUnicode();
-                //print normal text
-                printCustom(nombre_remiseria, 2, 1);
-                printNewLine();
-                printCustom("Tel. Remisería: " + telefono_remiseria, 1, 1);
-
-                printNewLine();
-                printText(stringABytes(act.getResources().getString(R.string.ticket_recaudacion))); // total 32 char in a single line
-
-                printNewLine();
-
-                String id;
-                String fecha;
-                String hora_inicio;
-                String hora_fin;
-                String importe;
-
-                for (turno Turno : turnos) {
-                    printNewLine();
-                    id = Turno.getId();
-                    fecha = Turno.getFecha();
-                    hora_inicio = Turno.getHora_inicio();
-                    hora_fin = Turno.getHora_fin();
-                    printCustom("TURNO " + id, 1, 0);
-                    printCustom("Fecha " + fecha, 1, 0);
-                    printCustom("Hora Inicio " + hora_inicio, 1, 0);
-                    if (!hora_fin.equals("null")) {
-                        printCustom("Hora Fin " + hora_fin, 1, 0);
-                    }
-                    importe = Turno.getRecaudacion();
-                    printText("TOTAL:  " + importe);
-                    printNewLine();
-                }
-
-                printNewLine();
-                printNewLine();
-                //resetPrint(); //reset printer
-                printUnicode();
-                printNewLine();
-                printNewLine();
-
-                outputStream.flush();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private void crear_pfd_ticket_recaudacion(ArrayList<turno> datos)
-    {
-        directorio();
-        pfd_ticket_recaudacion( datos );
-        Intent target = new Intent(Intent.ACTION_VIEW);
-        target.setDataAndType(FileProvider.getUriForFile(context, act.getPackageName() + ".my.package.name.provider", file), "application/pdf");
-        target.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        try {
-            startActivity(target);
-        } catch (ActivityNotFoundException e) {
-            Intent intent = Intent.createChooser(target, "Open File");
-            startActivity(intent);
-        }
-    }
-
-    private Boolean pfd_ticket_recaudacion(ArrayList<turno> turnos)
-    {
-        boolean success = false;
-        PdfPCell cell;
-
-
-        //saldo=saldo.replace("\n","");
-        //create document file
-        Document doc = new Document(PageSize.A5, 14f, 10f, 10f, 10f);
-        try {
-            doc.left(10f);
-            //doc.top(15f);
-            file = new File(dir, "ticket_recaudacion.pdf");
-            FileOutputStream fOut = new FileOutputStream(file);
-            PdfWriter writer = PdfWriter.getInstance(doc, fOut);
-
-            doc.open();
-
-            BaseFont bf = BaseFont.createFont(
-                    BaseFont.HELVETICA,
-                    BaseFont.CP1252,
-                    BaseFont.EMBEDDED);
-            Font font = new Font(bf, 15);
-
-            Font titulo = new Font(bf, 20);
-
-            float[] columnWidth;
-
-            columnWidth = new float[]{100};
-
-            PdfPTable tabla_enc = new PdfPTable(1);
-
-            cell = new PdfPCell(new Phrase(nombre_remiseria,titulo));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabla_enc.addCell(cell);
-
-            cell = new PdfPCell(new Phrase("Tel. Remisería: " + telefono_remiseria,font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabla_enc.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.ticket_recaudacion),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabla_enc.addCell(cell);
-
-            doc.add(tabla_enc);
-
-            LineSeparator lineSeparator = new LineSeparator();
-
-            lineSeparator.setLineColor(new BaseColor(255, 255, 255, 68));
-
-            doc.add(new Paragraph(""));
-            doc.add(new Chunk(lineSeparator));
-            doc.add(new Paragraph(""));
-
-
-            PdfPTable table1 = new PdfPTable(1);
-
-            String id;
-            String fecha;
-            String hora_inicio;
-            String hora_fin;
-            String importe;
-            for (turno Turno : turnos) {
-
-                id = Turno.getId();
-                fecha = Turno.getFecha();
-                hora_inicio = Turno.getHora_inicio();
-                hora_fin = Turno.getHora_fin();
-
-                cell = new PdfPCell(new Phrase("TURNO " + id,font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-                cell = new PdfPCell(new Phrase("Fecha " + fecha,font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-
-                cell = new PdfPCell(new Phrase("Hora Inicio " + hora_inicio,font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-
-                if (!hora_fin.equals("null")) {
-                    cell = new PdfPCell(new Phrase("Hora Fin " + hora_fin,font));
-                    cell.setBorder(Rectangle.NO_BORDER);
-                    cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                    table1.addCell(cell);
-                }
-                importe = Turno.getRecaudacion();
-                cell = new PdfPCell(new Phrase("TOTAL:  " + importe,font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-
-
-                cell = new PdfPCell(new Phrase("-------------------------",font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-
-                cell = new PdfPCell(new Phrase("",font));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                table1.addCell(cell);
-
-            }
-            doc.add(table1);
-
-        } catch (DocumentException | IOException de) {
-            Log.e("PDFCreator", "DocumentException:" + de);
-        } finally {
-            doc.close();
-
-            success = true;
-        }
-
-        return success;
-
-    }
 
     private Boolean verificar_internet(){
         ConnectivityManager connectivityManager = (ConnectivityManager) act.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -1830,31 +1471,25 @@ public class fragment_viaje extends Fragment {
                 printUnicode();
                 printNewLine();
 
-                printCustom(act.getResources().getString(R.string.reporte_ayuda), 0, 0);
+                printCustom(act.getResources().getString(R.string.reporte_ayuda), 0, 0);//0
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_parcial));
+                printText(act.getResources().getString(R.string.reporte_parcial));//1
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_turno));
+                printText(act.getResources().getString(R.string.reporte_viajes));//2
                 printNewLine();
-                printText(stringABytes(act.getResources().getString(R.string.reporte_ultimos)));
+                printText(stringABytes(act.getResources().getString(R.string.automatico)));//3
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_resumen));
+                printText(act.getResources().getString(R.string.reporte_resumen));//4
                 printNewLine();
-                printText(act.getResources().getString(R.string.fin_turno));
+                printText(act.getResources().getString(R.string.reporte_impresora));//5
                 printNewLine();
-                printText(stringABytes(act.getResources().getString(R.string.reporte_ticket)));
+                printText(stringABytes(act.getResources().getString(R.string.reporte_ticket)));//6
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_fin_turno));
+                printText(act.getResources().getString(R.string.reporte_fin_turno));//7
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_viajes));
+                printText(act.getResources().getString(R.string.mapa));//8
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_viaje));
-                printNewLine();
-                printText(act.getResources().getString(R.string.mapa));
-                printNewLine();
-                printText(act.getResources().getString(R.string.reporte_impresora));
-                printNewLine();
-                printText(act.getResources().getString(R.string.automatico));
+                printText(act.getResources().getString(R.string.refresco));//9
 
                 printNewLine();
                 printNewLine();
@@ -2011,7 +1646,6 @@ public class fragment_viaje extends Fragment {
                     String l_nro_turno = object.getString("nro_turno");
                     habilitada = object.getString("habilitada");
 
-                    turno.setText("T.N°: " + l_nro_turno + " - " + l_fecha + " - " + l_hora_inicio);
                     progress1.dismiss();
                     actualizar_coordenadas(context);
 

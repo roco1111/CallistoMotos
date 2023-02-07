@@ -75,6 +75,7 @@ import com.rosario.hp.CallistoMotos.MainViaje;
 
 import com.rosario.hp.CallistoMotos.R;
 
+import com.rosario.hp.CallistoMotos.activity_preferencias;
 import com.rosario.hp.CallistoMotos.include.Constantes;
 import com.rosario.hp.CallistoMotos.include.PrinterCommands;
 import com.rosario.hp.CallistoMotos.include.Utils;
@@ -85,6 +86,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.itextpdf.text.Document;
+import com.rosario.hp.CallistoMotos.viajes_activity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -122,11 +124,8 @@ public class fragment_principal extends Fragment {
     private ImageButton boton_siete;
     private ImageButton boton_ocho;
     private ImageButton boton_nueve;
-    private ImageButton boton_automatico;
 
-    private ImageButton boton_fin_turno;
     private ImageButton boton_whatsapp;
-    private ImageButton boton_impresora;
 
     private String l_hora_desde;
     private String l_hora_hasta;
@@ -297,13 +296,11 @@ public class fragment_principal extends Fragment {
         this.boton_nueve = v.findViewById(R.id.imageButtonNueve);
         this.impresora = v.findViewById(R.id.impresora);
         this.boton_whatsapp = v.findViewById(R.id.imageWa);
-        this.boton_automatico = v.findViewById(R.id.imageautomatico);
         this.txt_parada = v.findViewById(R.id.parada);
         this.gps = v.findViewById(R.id.gps);
         this.red = v.findViewById(R.id.red);
         this.turno = v.findViewById(R.id.turno);
         texto_tarifa = v.findViewById(R.id.tarifa);
-        this.boton_impresora = v.findViewById(R.id.imageImpresora);
         paradas = new ArrayList<>();
         context = getContext();
         act = getActivity();
@@ -344,20 +341,20 @@ public class fragment_principal extends Fragment {
         nombre_remiseria = settings.getString("nombre_remiseria","");
         telefono_queja = settings.getString("telefono_queja","");
         telefono_remiseria = settings.getString("telefono_remiseria","");
+        this.boton_ocho.setEnabled(false);
+        this.boton_ocho.setBackground(act.getResources().getDrawable(R.drawable.ocho_gris));
         if(viajes_automaticos.equals("0")){
-            this.boton_automatico.setVisibility(View.GONE);
+            this.boton_tres.setEnabled(false);
+            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
         }else{
-            this.boton_automatico.setVisibility(View.VISIBLE);
+            this.boton_tres.setEnabled(true);
+            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
         }
 
         if(movil_habilitado.equals("1") && chofer_habilitado.equals("1"))
         {
-            this.boton_uno.setEnabled(true);
-            this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.selector_uno));
             this.boton_dos.setEnabled(true);
             this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.selector_dos));
-            this.boton_tres.setEnabled(true);
-            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
             this.boton_cuatro.setEnabled(true);
             this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.selector_cuatro));
             this.boton_seis.setEnabled(true);
@@ -367,12 +364,8 @@ public class fragment_principal extends Fragment {
 
 
         }else{
-            this.boton_uno.setEnabled(false);
-            this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.uno_gris));
             this.boton_dos.setEnabled(false);
             this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.dos_gris));
-            this.boton_tres.setEnabled(false);
-            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
             this.boton_cuatro.setEnabled(false);
             this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.cuatro_gris));
             this.boton_seis.setEnabled(false);
@@ -382,23 +375,15 @@ public class fragment_principal extends Fragment {
         }
         if(ls_id_turno.equals("0"))
         {
-            this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.automtico_gris));
-            this.boton_automatico.setEnabled(false);
+            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
+            this.boton_tres.setEnabled(false);
         }else{
-            this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.selector_automatico));
-            this.boton_automatico.setEnabled(true);
+            this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
+            this.boton_tres.setEnabled(true);
         }
         MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.everblue);
 
-        this.boton_automatico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                mediaPlayer.start();
-                viaje_automatico(context);
-
-            }
-        });
 
 
         this.boton_whatsapp.setOnClickListener(new View.OnClickListener() {
@@ -437,44 +422,33 @@ public class fragment_principal extends Fragment {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
-
-                datos_turno(context);
+                Intent intent2 = new Intent(context, activity_preferencias.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent2);
 
             }
         });
-
         this.boton_dos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
+                Intent intent2 = new Intent(context, viajes_activity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent2);
 
-                lb_ultimo = true;
-                ultimo_turno(context);
-
-            }
-        });
-
-        this.boton_cinco.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                if(ls_id_turno.equals("0")) {
-                    verificar_movil_turno(context);
-                }else{
-                    cerrar_turno(context);
-                }
             }
         });
 
         this.boton_tres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.start();
 
-                cargarDatos(context);
+                mediaPlayer.start();
+                viaje_automatico(context);
 
             }
         });
+
 
         this.boton_cuatro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -487,7 +461,8 @@ public class fragment_principal extends Fragment {
             }
         });
 
-        this.boton_impresora.setOnClickListener(new View.OnClickListener() {
+
+        this.boton_cinco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
@@ -528,14 +503,6 @@ public class fragment_principal extends Fragment {
             }
         });
 
-        this.boton_ocho.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                Intent intent2 = new Intent(context, turnos_activity.class);
-                context.startActivity(intent2);
-            }
-        });
 
         this.boton_nueve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -713,13 +680,14 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
                     l_turno_app = object.getString("valor");
 
                 }
+                /*
                 if(l_turno_app.equals("0")){
                     boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco_gris));
                     boton_cinco.setEnabled(false);
                 }else{
                     boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco));
                     boton_cinco.setEnabled(true);
-                }
+                }*/
                 cargarParametroTarifaDesde(context);
 
                 break;
@@ -1044,7 +1012,11 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
 
                         if(l_impresion.equals("0")) {
 
-                            boton_impresora.setVisibility(View.GONE);
+                            this.boton_cinco.setEnabled(false);
+                            this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco_gris));
+                        }else{
+                            this.boton_cinco.setEnabled(true);
+                            this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco));
                         }
 
                         cargarParadas(context);
@@ -1126,36 +1098,26 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
 
                     if(habilitada.equals("1") )
                     {
-                        this.boton_uno.setEnabled(true);
-                        this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.selector_uno));
                         this.boton_dos.setEnabled(true);
                         this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.selector_dos));
-                        this.boton_tres.setEnabled(true);
-                        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
                         this.boton_cuatro.setEnabled(true);
                         this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.selector_cuatro));
                         this.boton_seis.setEnabled(true);
                         this.boton_seis.setBackground(act.getResources().getDrawable(R.drawable.selector_seis));
                         this.boton_siete.setEnabled(true);
                         this.boton_siete.setBackground(act.getResources().getDrawable(R.drawable.selector_siete));
-                        this.boton_fin_turno.setBackground(act.getResources().getDrawable(R.drawable.fin_turno));
 
                         datos_viajes_turno(context);
 
                     }else{
-                        this.boton_uno.setEnabled(false);
-                        this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.uno_gris));
                         this.boton_dos.setEnabled(false);
                         this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.dos_gris));
-                        this.boton_tres.setEnabled(false);
-                        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
                         this.boton_cuatro.setEnabled(false);
                         this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.cuatro_gris));
                         this.boton_seis.setEnabled(false);
                         this.boton_seis.setBackground(act.getResources().getDrawable(R.drawable.seis_gris));
                         this.boton_siete.setEnabled(false);
                         this.boton_siete.setBackground(act.getResources().getDrawable(R.drawable.siete_gris));
-                        this.boton_fin_turno.setBackground(act.getResources().getDrawable(R.drawable.fin_turno_gris));
                     }
 
 
@@ -1478,87 +1440,6 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
     }
 
 
-    private void cerrar_turno(final Context context){
-
-        String newURL = Constantes.FIN_TURNO + "?id=" + ls_id_conductor;
-        Log.d(TAG,newURL);
-
-        // Actualizar datos en el servidor
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(
-                        Request.Method.POST,
-                        newURL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                procesarRespuestaCerrarTurno(response, context);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Error turno: " + error.getMessage());
-
-                            }
-                        }
-
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json; charset=utf-8");
-                        return headers;
-                    }
-
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=utf-8" + getParamsEncoding();
-                    }
-                }
-        );
-    }
-    private void procesarRespuestaCerrarTurno(JSONObject response, Context context) {
-
-        try {
-            // Obtener estado
-            String estado = response.getString("estado");
-            // Obtener mensaje
-            String mensaje = response.getString("mensaje");
-
-            switch (estado) {
-                case "1":
-                    Toast.makeText(
-                    context,
-                    "Turno Finalizado",
-                    Toast.LENGTH_LONG).show();
-                    turno.setText(act.getResources().getString(R.string.turno_finalizado) );
-                    ls_id_turno = "0";
-                    this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.automtico_gris));
-                    this.boton_automatico.setEnabled(false);
-                    SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(context);
-
-                    SharedPreferences.Editor editor = settings1.edit();
-
-                    editor.putString("id_turno_chofer",ls_id_turno);
-                    editor.apply();
-                    if(mBound) {
-                        datos_turno(context);
-                    }
-                    break;
-                case "2":
-                    // Mostrar mensaje
-                    Toast.makeText(
-                            context,
-                            mensaje,
-                            Toast.LENGTH_LONG).show();
-                    // Enviar código de falla
-                    break;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void ultimo_turno(final Context context){
 
@@ -2003,7 +1884,7 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
 
             switch (estado) {
                 case "1":
-                    cargarTurno(context);
+                   // cargarTurno(context);
                     break;
                 case "2":
                     // Mostrar mensaje
@@ -2019,178 +1900,8 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
         }
     }
 
-    public void cargarTurno(final Context context) {
-
-        // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_TURNO + "?conductor=" + ls_id_conductor;
-        Log.d(TAG,newURL);
-
-        // Realizar petición GET_BY_ID
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                myRequest = new JsonObjectRequest(
-                        Request.Method.POST,
-                        newURL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // Procesar respuesta Json
-                                procesarRespuestaTurno(response, context);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Error Volley turno: " + error.getMessage());
-
-                            }
-                        }
-                )
-        );
-        myRequest.setRetryPolicy(new DefaultRetryPolicy(
-                50000,
-                5,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-    }
-
-    private void procesarRespuestaTurno(JSONObject response, Context context) {
-
-        try {
-            // Obtener atributo "mensaje"
-            String mensaje = response.getString("estado");
-            Fragment fragment = null;
-            switch (mensaje) {
-                case "1":
-                    JSONArray mensaje1 = response.getJSONArray("conductor");
-                    JSONObject object = mensaje1.getJSONObject(0);
-
-                    SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(context);
-
-                    SharedPreferences.Editor editor = settings1.edit();
-
-                    ls_id_turno = object.getString("id");
-
-                    editor.putString("id_turno_chofer",ls_id_turno);
-                    editor.apply();
-
-                    String l_fecha = object.getString("fecha");
-                    String l_hora_inicio = object.getString("hora_inicio");
-
-                    turno.setText("T.N°: " + l_nro_turno + " - " + l_fecha + " - " + l_hora_inicio);
-                    this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.selector_automatico));
-                    this.boton_automatico.setEnabled(true);
-
-                    actualizar_turno(context);
-
-                    break;
-
-                case "2":
-                    break;
-
-            }
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void actualizar_turno(final Context context){
-
-
-        HashMap<String, String> map = new HashMap<>();// Mapeo previo
-
-        map.put("id", ls_id_turno);
-        map.put("nro_turno", l_turno_parametro);
-
-        JSONObject jobject = new JSONObject(map);
-
-        // Depurando objeto Json...
-        Log.d(TAG, jobject.toString());
-
-        StringBuilder encodedParams = new StringBuilder();
-        try {
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                encodedParams.append(URLEncoder.encode(entry.getKey(), "utf-8"));
-                encodedParams.append('=');
-                encodedParams.append(URLEncoder.encode(entry.getValue(), "utf-8")).toString();
-                encodedParams.append('&');
-            }
-        } catch (UnsupportedEncodingException uee) {
-            throw new RuntimeException("Encoding not supported: " + "utf-8", uee);
-        }
-
-        encodedParams.setLength(Math.max(encodedParams.length() - 1, 0));
-
-
-        String newURL = Constantes.UPDATE_NRO_TURNO + "?" + encodedParams;
-        Log.d(TAG,newURL);
-        // Actualizar datos en el servidor
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(
-                        Request.Method.GET,
-                        newURL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                procesarRespuestaActualizarTurno(response, context);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Error Turno: " + error.getMessage());
-
-                            }
-                        }
-
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json; charset=utf-8");
-                        return headers;
-                    }
-
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=utf-8" + getParamsEncoding();
-                    }
-                }
-        );
-    }
-    private void procesarRespuestaActualizarTurno(JSONObject response, Context context) {
-
-        try {
-            // Obtener estado
-            String estado = response.getString("estado");
-            // Obtener mensaje
-            String mensaje = response.getString("mensaje");
-
-            switch (estado) {
-                case "1":
-                    Toast.makeText(
-                            context,
-                            mensaje,
-                            Toast.LENGTH_LONG).show();
-                    break;
-                case "2":
-                    // Mostrar mensaje
-                    Toast.makeText(
-                            context,
-                            mensaje,
-                            Toast.LENGTH_LONG).show();
-                    // Enviar código de falla
-                    break;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void cargarDatos(final Context context) {
 
@@ -2485,20 +2196,14 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
 
                     if(habilitada.equals("1") )
                     {
-                        this.boton_uno.setEnabled(true);
-                        this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.selector_uno));
                         this.boton_dos.setEnabled(true);
                         this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.selector_dos));
-                        this.boton_tres.setEnabled(true);
-                        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
                         this.boton_cuatro.setEnabled(true);
                         this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.selector_cuatro));
                         this.boton_seis.setEnabled(true);
                         this.boton_seis.setBackground(act.getResources().getDrawable(R.drawable.selector_seis));
                         this.boton_siete.setEnabled(true);
                         this.boton_siete.setBackground(act.getResources().getDrawable(R.drawable.selector_siete));
-                        this.boton_cinco.setEnabled(true);
-                        this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco));
                         ls_id_turno = object.getString("id");
 
                         editor.putString("id_turno_chofer",ls_id_turno);
@@ -2508,28 +2213,21 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
                         String l_hora_inicio = object.getString("hora_inicio");
                         String l_nro_turno = object.getString("nro_turno");
 
-                        turno.setText("T.N°: " + l_nro_turno + " - " + l_fecha + " - " + l_hora_inicio);
-                        this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.selector_automatico));
-                        this.boton_automatico.setEnabled(true);
+                        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.selector_tres));
+                        this.boton_tres.setEnabled(true);
                         if(lb_bluetooth) {
                             cargarImpresora(context);
                         }
 
                     }else{
-                        this.boton_uno.setEnabled(false);
-                        this.boton_uno.setBackground(act.getResources().getDrawable(R.drawable.uno_gris));
                         this.boton_dos.setEnabled(false);
                         this.boton_dos.setBackground(act.getResources().getDrawable(R.drawable.dos_gris));
-                        this.boton_tres.setEnabled(false);
-                        this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
                         this.boton_cuatro.setEnabled(false);
                         this.boton_cuatro.setBackground(act.getResources().getDrawable(R.drawable.cuatro_gris));
                         this.boton_seis.setEnabled(false);
                         this.boton_seis.setBackground(act.getResources().getDrawable(R.drawable.seis_gris));
                         this.boton_siete.setEnabled(false);
                         this.boton_siete.setBackground(act.getResources().getDrawable(R.drawable.siete_gris));
-                        this.boton_cinco.setEnabled(false);
-                        this.boton_cinco.setBackground(act.getResources().getDrawable(R.drawable.cinco_gris));
                     }
 
 
@@ -2539,9 +2237,8 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
                             context,
                             mensaje,
                             Toast.LENGTH_LONG).show();
-                    turno.setText(act.getResources().getString(R.string.turno_finalizado) );
-                    this.boton_automatico.setBackground(act.getResources().getDrawable(R.drawable.automtico_gris));
-                    this.boton_automatico.setEnabled(false);
+                    this.boton_tres.setBackground(act.getResources().getDrawable(R.drawable.tres_gris));
+                    this.boton_tres.setEnabled(false);
 
                     break;
 
@@ -3155,33 +2852,26 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
                 printUnicode();
                 printNewLine();
 
-                printCustom(act.getResources().getString(R.string.reporte_ayuda), 0, 0);
+                printCustom(act.getResources().getString(R.string.reporte_ayuda), 0, 0);//0
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_parcial));
+                printText(act.getResources().getString(R.string.reporte_parcial));//1
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_turno));
+                printText(act.getResources().getString(R.string.reporte_viajes));//2
                 printNewLine();
-                printText(stringABytes(act.getResources().getString(R.string.reporte_ultimos)));
+                printText(stringABytes(act.getResources().getString(R.string.automatico)));//3
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_resumen));
+                printText(act.getResources().getString(R.string.reporte_resumen));//4
                 printNewLine();
-                printText(act.getResources().getString(R.string.fin_turno));
+                printText(act.getResources().getString(R.string.reporte_impresora));//5
                 printNewLine();
-                printText(stringABytes(act.getResources().getString(R.string.reporte_ticket)));
+                printText(stringABytes(act.getResources().getString(R.string.reporte_ticket)));//6
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_fin_turno));
+                printText(act.getResources().getString(R.string.reporte_fin_turno));//7
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_viajes));
+                printText(act.getResources().getString(R.string.reporte_viajes));//8
                 printNewLine();
-                printText(act.getResources().getString(R.string.reporte_viaje));
-                printNewLine();
-                printText(act.getResources().getString(R.string.automatico));
-                printNewLine();
-                printText(act.getResources().getString(R.string.mapa));
-                printNewLine();
-                printText(act.getResources().getString(R.string.reporte_impresora));
-                printNewLine();
-                printText(act.getResources().getString(R.string.automatico));
+                printText(act.getResources().getString(R.string.refresco));//9
+
 
                 printNewLine();
                 printNewLine();
@@ -3293,67 +2983,53 @@ private void procesarRespuestaParametroTurno(JSONObject response, Context contex
             PdfPTable table = new PdfPTable(1);
 
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ayuda),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ayuda),font));//0
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_parcial),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_perfil),font));//1
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viajes),font));//2
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ultimos),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.automatico),font));//3
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_resumen),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_resumen),font));//4
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.fin_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_impresora),font));//5
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ticket),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_ticket),font));//6
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_fin_turno),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_fin_turno),font));//7
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viajes),font));
+
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.mapa),font));//8
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_viaje),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.automatico),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.reporte_impresora),font));
-            cell.setBorder(Rectangle.NO_BORDER);
-            cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.mapa),font));
+            cell = new PdfPCell(new Phrase(act.getResources().getString(R.string.refresco),font));//9
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             table.addCell(cell);

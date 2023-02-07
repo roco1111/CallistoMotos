@@ -1663,8 +1663,12 @@ public class fragment_viaje_iniciado extends Fragment {
 
             switch (estado) {
                 case "1":
-                    Intent intent2 = new Intent(getContext(), MainViaje.class);
-                    context.startActivity(intent2);
+                    //Intent intent2 = new Intent(getContext(), MainViaje.class);
+                    //context.startActivity(intent2);
+                    Intent intent3 = new Intent(context, MainActivity.class);
+                    intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    context.startActivity(intent3);
+                    act.finish();
                     break;
                 case "2":
                     // Mostrar mensaje
@@ -1731,8 +1735,10 @@ public class fragment_viaje_iniciado extends Fragment {
 
             switch (estado) {
                 case "1":
-                    Intent intent2 = new Intent(context, MainViaje.class);
-                    context.startActivity(intent2);
+                    Intent intent3 = new Intent(context, MainActivity.class);
+                    intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    context.startActivity(intent3);
+                    act.finish();
                     break;
                 case "2":
                     // Mostrar mensaje

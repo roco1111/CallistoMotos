@@ -117,7 +117,6 @@ public class turnoAdapter extends RecyclerView.Adapter<turnoAdapter.HolderTurno>
         editor.putString("id_turno",turnos.get(position).getId());
         editor.apply();
 
-        editor.commit();
     }
 }
 interface ItemClickListener6 {

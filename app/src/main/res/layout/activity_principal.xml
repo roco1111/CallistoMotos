@@ -310,14 +310,7 @@
 
             tools:ignore="RtlHardcoded" />
 
-        <ImageButton
-            android:id="@+id/imageImpresora"
-            android:layout_width="@dimen/ancho_boton"
-            android:layout_height="@dimen/ancho_boton"
-            android:layout_marginStart="@dimen/campos_height"
-            android:layout_toEndOf="@id/imageWa"
-            android:background="@drawable/selector_impresora"
-            android:scaleType="fitXY" />
+
 
     </RelativeLayout>
     <RelativeLayout
@@ -329,14 +322,7 @@
         android:layout_marginTop="@dimen/margin_top_item"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageautomatico"
-            android:layout_width="@dimen/ancho_boton"
-            android:layout_height="@dimen/ancho_boton"
 
-            android:background="@drawable/selector_automatico"
-
-            android:scaleType="fitXY" />
 
     </RelativeLayout>
 </RelativeLayout>

@@ -10,11 +10,11 @@ android {
 
     defaultConfig {
         applicationId "com.rosario.hp.CallistoMotos"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 32
 
-        versionCode 63
-        versionName "1.63"
+        versionCode 1
+        versionName "1.01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,7 +22,7 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'remislunadebug'
+            keyAlias 'callistomotosdebug'
             keyPassword 'android'
             storeFile file('C:/Users/hp/.android/debug.keystore')
             storePassword 'android'
@@ -74,7 +74,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'dev.dworks.libs:volleyplus:0.1.4'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
@@ -93,16 +92,15 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.firebaseui:firebase-ui:0.6.0'
-    implementation 'com.firebaseui:firebase-ui-storage:3.2.1'
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
-    implementation 'com.firebaseui:firebase-ui-storage:3.3.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'androidx.annotation:annotation:1.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'jp.wasabeef:glide-transformations:3.3.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation 'com.google.firebase:firebase-analytics:21.2.0'
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'

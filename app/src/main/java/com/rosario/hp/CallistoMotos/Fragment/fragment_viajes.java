@@ -44,7 +44,7 @@ public class fragment_viajes extends Fragment {
     private TextView texto;
     private ImageView imagen;
     private RecyclerView.LayoutManager lManager;
-    private String ls_id_turno;
+    private String ls_id_chofer;
     SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<viaje> datos;
     private Activity act;
@@ -75,7 +75,7 @@ public class fragment_viajes extends Fragment {
         lista.setLayoutManager(lManager);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        ls_id_turno     = settings.getString("id_turno","");
+        ls_id_chofer     = settings.getString("id","");
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -95,7 +95,7 @@ public class fragment_viajes extends Fragment {
     public void cargarDatos() {
 
         // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_VIAJES_TURNO + "?turno=" + ls_id_turno;
+        String newURL = Constantes.GET_VIAJES_CHOFER + "?chofer=" + ls_id_chofer;
         Log.d(TAG,newURL);
 
         // Realizar petición GET_BY_ID

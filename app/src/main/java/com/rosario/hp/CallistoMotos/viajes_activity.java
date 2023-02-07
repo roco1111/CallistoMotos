@@ -68,18 +68,13 @@ public class viajes_activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent2 = new Intent(context, turnos_activity.class);
-        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent2);
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == event.KEYCODE_BACK) {
-            Intent intent2 = new Intent(context, turnos_activity.class);
+            this.finish();
+            Intent intent2 = new Intent(context, MainActivity.class);
             intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent2);
         }

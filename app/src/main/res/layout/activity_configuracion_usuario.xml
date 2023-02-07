@@ -30,14 +30,15 @@
             android:id="@+id/imageViewfoto"
             android:layout_width="@dimen/perfil_image_size"
             android:layout_height="@dimen/perfil_image_size"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorPrimary"
             android:layout_alignParentTop="true"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account_circle"
             android:visibility="visible"
-             />
+            app:civ_border_color="@color/colorPrimary"
+            android:requestLegacyExternalStorage="true"
+            android:preserveLegacyExternalStorage="true"
+            app:civ_border_width="2dp" />
 
         <EditText
             android:id="@+id/editTextNombre"

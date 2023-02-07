@@ -13,12 +13,13 @@ public class Constantes {
     public static final String GET_BY_CLAVE = "https://" + IP + PUERTO_HOST + "/obtener_clave.php";
 
     public static final String GET_VIAJE_SOLICITADOS = "https://" + IP + PUERTO_HOST + "/obtener_viaje_asignado.php";
-    public static final String GET_VIAJE_EN_CURSO = "https://" + IP + PUERTO_HOST + "/obtener_viaje_en_curso.php";
+    public static final String GET_VIAJE_EN_CURSO = "https://" + IP + PUERTO_HOST + "/obtener_viaje_en_curso_moto.php";
     public static final String GET_VIAJE_TERMINADO = "https://" + IP + PUERTO_HOST + "/obtener_viaje_terminado.php";
     public static final String GET_TURNO = "https://" + IP + PUERTO_HOST + "/obtener_turno.php";
     public static final String GET_TURNO_BY_ID = "https://" + IP + PUERTO_HOST + "/obtener_un_turno.php";
     public static final String GET_TURNOS = "https://" + IP + PUERTO_HOST + "/obtener_turnos.php";
     public static final String GET_VIAJES_TURNO = "https://" + IP + PUERTO_HOST + "/obtener_viajes_turno.php";
+    public static final String GET_VIAJES_CHOFER = "https://" + IP + PUERTO_HOST + "/obtener_viajes_chofer.php";
     public static final String GET_ULTIMOS_VIAJES = "https://" + IP + PUERTO_HOST + "/obtener_ultimos_viajes.php";
     public static final String GET_ULTIMO_VIAJE = "https://" + IP + PUERTO_HOST + "/obtener_ultimo_viaje.php";
     public static final String GET_VIAJE_BY_ID = "https://" + IP + PUERTO_HOST + "/obtener_un_viaje.php";
@@ -31,7 +32,7 @@ public class Constantes {
     public static final String ACTUALIZAR_VIAJE = "https://" + IP + PUERTO_HOST + "/actualizar_viaje.php";
     public static final String ALARMA_VIAJE = "https://" + IP + PUERTO_HOST + "/alarma_viaje.php";
     public static final String INSERTAR_TRAYECTORIA = "https://" + IP + PUERTO_HOST + "/agregar_trayectoria.php";
-    public static final String VIAJE_AUTOMATICO = "https://" + IP + PUERTO_HOST + "/agregar_viaje_aut.php";
+    public static final String VIAJE_AUTOMATICO = "https://" + IP + PUERTO_HOST + "/agregar_viaje_aut_moto.php";
 
     public static final String GET_VEHICULO = "https://" + IP + PUERTO_HOST + "/obtener_vehiculo.php";
     public static final String GET_ID_VEHICULO = "https://" + IP + PUERTO_HOST + "/obtener_id_vehiculo.php";
@@ -52,7 +53,7 @@ public class Constantes {
     public static final String GET_ID_PARAMETRO = "https://" + IP + PUERTO_HOST + "/obtener_parametro.php";
     public static final String UPDATE_PARAMETRO = "https://" + IP + PUERTO_HOST + "/actualizar_parametro.php";
 
-    public static final String GET_TARIFAS = "https://" + IP + PUERTO_HOST + "/obtener_ultima_tarifa.php";
+    public static final String GET_TARIFAS = "https://" + IP + PUERTO_HOST + "/obtener_ultima_tarifa_moto.php";
 
     public static final String GET_FERIADO = "https://" + IP + PUERTO_HOST + "/es_feriado.php";
 
