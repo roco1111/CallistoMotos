@@ -384,8 +384,6 @@ public class fragment_principal extends Fragment {
         MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.everblue);
 
 
-
-
         this.boton_whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

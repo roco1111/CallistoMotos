@@ -136,6 +136,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".turnos_activity" />
         </activity>
+        <activity android:name=".acerca"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity_preferencias" />
+        </activity>
         <service android:name=".FCMService"
             android:exported="true">
             <intent-filter>

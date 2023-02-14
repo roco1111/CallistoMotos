@@ -10,7 +10,7 @@ public class Constantes {
 
     public static final String UPDATE_UBICACION = "https://" + IP + PUERTO_HOST + "/actualizar_ubicacion.php";
 
-    public static final String GET_BY_CLAVE = "https://" + IP + PUERTO_HOST + "/obtener_clave.php";
+    public static final String GET_BY_CLAVE = "https://" + IP + PUERTO_HOST + "/obtener_clave_moto.php";
 
     public static final String GET_VIAJE_SOLICITADOS = "https://" + IP + PUERTO_HOST + "/obtener_viaje_asignado.php";
     public static final String GET_VIAJE_EN_CURSO = "https://" + IP + PUERTO_HOST + "/obtener_viaje_en_curso_moto.php";

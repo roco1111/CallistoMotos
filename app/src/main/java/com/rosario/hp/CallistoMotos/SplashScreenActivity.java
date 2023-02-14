@@ -87,7 +87,7 @@ public class SplashScreenActivity extends Activity {
                            SplashScreenActivity.this,Main_Login.class);
                    startActivity(mainIntent);
 
-
+                    finish();
 
 
                 }else{
@@ -97,7 +97,7 @@ public class SplashScreenActivity extends Activity {
               }
                 // Close the activity so the user won't able to go back this
                 // activity pressing Back button
-                finish();
+
             }
         };
  
@@ -227,6 +227,7 @@ public class SplashScreenActivity extends Activity {
             Intent mainIntent = new Intent().setClass(
                     SplashScreenActivity.this, MainActivity.class);
             startActivity(mainIntent);
+            finish();
 
 
         } catch (JSONException e) {

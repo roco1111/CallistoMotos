@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1975" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1975" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/acerca.xml" value="0.8425925925925926" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_configuracion_usuario.xml" value="0.39814814814814814" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_main_basica.xml" value="0.8425925925925926" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CallistoMotos/app/src/main/res/layout/activity_notificactions.xml" value="0.8425925925925926" />
